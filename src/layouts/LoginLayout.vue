@@ -4,6 +4,8 @@ import { defineComponent } from "vue";
 defineComponent({
   name: "LoginLayout",
 });
+
+console.log("login");
 </script>
 
 <template>
