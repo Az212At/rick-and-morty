@@ -21,7 +21,7 @@
 </template>
 
 <style lang="scss" scoped>
-@use "@/scss/mixins.scss" as *;
+@import "@/scss/mixins.scss";
 
 .home-view {
   .logo-a {
