@@ -15,7 +15,7 @@
       <p>Personagens. localizações, episódios e muito mais.</p>
     </div>
     <div class="rick-images">
-      <img src="@/assets/img/HighlightImageRick.svg" alt="#" />
+      <img src="@/assets/img/HighlightImageRick.png" alt="#" />
     </div>
   </div>
 </template>
