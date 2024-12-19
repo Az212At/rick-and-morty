@@ -42,3 +42,13 @@
   font-weight: 400;
   line-height: 16px;
 }
+
+@mixin text-inter {
+  font-family: Inter, serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 29.05px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+}
