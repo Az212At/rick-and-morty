@@ -2,20 +2,25 @@
 
 <template>
   <div class="home-view">
-    <div class="logo-a">
-      <img src="@/assets/img/logoA.svg" alt="#" />
+    <div class="home-view__logo">
+      <img src="@/assets/img/logoA.svg" alt="Logo" />
     </div>
-    <div class="template1">
-      <header>
-        <h1>Saiba tudo em um só <span>lugar.</span></h1>
+    <div class="home-view__content">
+      <header class="home-view__header">
+        <h1 class="home-view__title">
+          Saiba tudo em um só
+          <span class="home-view__title-highlight">lugar.</span>
+        </h1>
       </header>
-      <p>Wubba Lubba Dub Dub!</p>
+      <p class="home-view__subtitle">Wubba Lubba Dub Dub!</p>
     </div>
-    <div class="details-info">
-      <p>Personagens. localizações, episódios e muito mais.</p>
+    <div class="home-view__details">
+      <p class="home-view__details-text">
+        Personagens, localizações, episódios e muito mais.
+      </p>
     </div>
-    <div class="rick-images">
-      <img src="@/assets/img/HighlightImageRick.png" alt="#" />
+    <div class="home-view__images">
+      <img src="@/assets/img/HighlightImageRick.png" alt="Rick Image" />
     </div>
   </div>
 </template>
@@ -24,55 +29,59 @@
 @import "@/scss/mixins.scss";
 
 .home-view {
-  .logo-a {
+  &__logo {
     > img {
       width: 397px;
       height: 115.72px;
+      position: absolute;
       top: 112px;
       left: 210px;
-      gap: 0;
     }
   }
 
-  .template1 {
+  &__content {
     width: 539px;
     height: 314px;
+    position: absolute;
     top: 399px;
     left: 210px;
-    gap: 0;
-    > header > h1 {
-      font-family: Inter, serif;
-      font-size: 72px;
-      font-weight: 700;
-      line-height: 87.14px;
-      text-align: left;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
-      > span {
+
+    &-header {
+      margin-bottom: 16px;
+
+      &-title {
         font-family: Inter, serif;
         font-size: 72px;
         font-weight: 700;
         line-height: 87.14px;
-        text-align: left;
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
+
+        &-highlight {
+          color: #44c765;
+        }
       }
     }
-    > p {
+
+    &-subtitle {
       @include text-inter;
-      background: #44c765;
+      background-color: #44c765;
+      padding: 8px;
     }
   }
 
-  .details-info {
+  &__details {
     width: 397px;
-    > p {
+    margin-top: 16px;
+
+    &-text {
       @include text-inter;
-      background: #ffffff;
+      background-color: #ffffff;
+      padding: 8px;
     }
   }
 
-  .rick-images {
+  &__images {
+    margin-top: 32px;
+
     > img {
       width: 773px;
       height: 1080px;
