@@ -1,5 +1,10 @@
 <script setup lang="ts">
+import { defineComponent } from "vue";
 import { ref, onMounted } from "vue";
+
+defineComponent({
+  name: "CharactersView",
+});
 
 interface Character {
   id: number;
