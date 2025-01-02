@@ -76,6 +76,11 @@ onMounted(fetchCharacters);
 
 <style lang="scss" scoped>
 .characters-list {
+  width: 1920px;
+  height: 2480px;
+  top: -240px;
+  left: -239px;
+
   &_title {
     text-align: center;
     margin-bottom: 20px;
@@ -94,8 +99,9 @@ onMounted(fetchCharacters);
     list-style: none;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.4px;
+    justify-items: center;
   }
 
   &_item {
@@ -103,6 +109,8 @@ onMounted(fetchCharacters);
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 294px;
+    height: 400px;
     transition: transform 0.2s;
 
     &:hover {
