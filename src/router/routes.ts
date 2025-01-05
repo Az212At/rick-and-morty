@@ -5,14 +5,14 @@ export enum RouteNames {
   MAIN_LAYOUT = "MainLayout",
   HOME_VIEW = "HomeView",
   NOT_FOUND = "NotFound",
-  CHARACTER_VIEW = "CharactersView",
+  COVER_VIEW = "CoverView",
 }
 
 export const RoutePaths: Record<RouteNames, string> = {
   [RouteNames.MAIN_LAYOUT]: "/",
-  [RouteNames.HOME_VIEW]: "",
+  [RouteNames.HOME_VIEW]: "/home",
   [RouteNames.NOT_FOUND]: "/:pathMatch(.*)*",
-  [RouteNames.CHARACTER_VIEW]: "",
+  [RouteNames.COVER_VIEW]: "",
 };
 
 export const routes: RouteRecordRaw[] = [
@@ -34,8 +34,8 @@ export const routes: RouteRecordRaw[] = [
     component: () => import("@/views/NotFoundView.vue"),
   },
   {
-    path: RoutePaths.CharactersView,
-    name: RouteNames.CHARACTER_VIEW,
-    component: () => import("@/views/CharactersView.vue"),
+    path: RoutePaths.CoverView,
+    name: RouteNames.COVER_VIEW,
+    component: () => import("@/views/CoverView.vue"),
   },
 ];
