@@ -1,47 +1,19 @@
 <script setup lang="ts">
-import { defineComponent } from "vue";
+import { defineOptions } from "vue";
 import { ref, onMounted } from "vue";
+import { ICharacter } from "@/modules/post-page/types/characters";
+import { useCharacterStore } from "@/modules/post-page/store/characterStore";
 
-defineComponent({
-  name: "CharactersView",
+defineOptions({
+  name: "HomeView",
 });
 
-interface Character {
-  id: number;
-  name: string;
-  status: string;
-  species: string;
-  type: string;
-  gender: string;
-  origin: string[];
-  location: string[];
-  image: string;
-  episode: string[];
-  url: string;
-  created: string;
-}
+const characters = ref<ICharacter[]>([]);
+const characterStore = useCharacterStore();
 
-const characters = ref<Character[]>([]);
-const isLoading = ref(true);
-const errorMessage = ref<string | null>(null);
-
-const fetchCharacters = async () => {
-  try {
-    const response = await fetch("https://rickandmortyapi.com/api/character");
-    if (!response.ok) {
-      throw new Error(`Ошибка HTTP: ${response.status}`);
-    }
-    const data = await response.json();
-    characters.value = data.results;
-  } catch (error) {
-    errorMessage.value =
-      error instanceof Error ? error.message : "Неизвестная ошибка";
-  } finally {
-    isLoading.value = false;
-  }
-};
-
-onMounted(fetchCharacters);
+onMounted(() => {
+  characterStore.fetchCharacters();
+});
 </script>
 
 <template>
@@ -83,7 +55,7 @@ onMounted(fetchCharacters);
         <input
           type="text"
           class="search__input input"
-          placehokder="Personagem, episódio, localização..."
+          placeholder="Personagem, episódio, localização..."
         />
         <p class="search-paragraph">Filtrar por:</p>
         <button type="button" class="search__btn-pers btn">
@@ -105,9 +77,11 @@ onMounted(fetchCharacters);
           <span class="btn__emoticons">🌙</span>
           <span class="btn__text">Ver todos</span>
         </button>
-        <div v-if="isLoading" class="personagens__loading">Загрузка...</div>
-        <div v-else-if="errorMessage" class="personagens__error">
-          Ошибка: {{ errorMessage }}
+        <div v-if="characterStore.isLoading" class="personagens__loading">
+          Загрузка...
+        </div>
+        <div v-else-if="characterStore.errorMessage" class="personagens__error">
+          Ошибка: {{ characterStore.errorMessage }}
         </div>
         <ul v-else class="personagens__list list">
           <li
@@ -159,75 +133,50 @@ onMounted(fetchCharacters);
 </template>
 
 <style lang="scss" scoped>
+@import "@/scss/variables.scss";
+@import "@/scss/mixins.scss";
+
 .home-view {
   width: 1920px;
   height: 2480px;
-  top: -240px;
-  left: -239px;
-  background: #1e1e20;
+  background: var(--subBlack);
   &__header {
     width: 1923px;
     height: 580px;
-    background: #000000;
+    background: var(--black);
     &__logo {
       width: 1239px;
       height: 64px;
-      top: 64px;
-      left: 341px;
       &__svg {
         width: 219.57px;
         height: 64px;
-        top: 64px;
-        left: 341px;
       }
       &__btn {
         width: 157px;
         height: 32px;
-        top: 80px;
-        left: 1423px;
         border-radius: 32px 0 0 0;
-        background: #11b0c8;
+        background: var(--blue);
         &__emoticons {
           width: 24px;
           height: 24px;
-          top: 85px;
-          left: 1428px;
           padding: 3px 1.5px 3px 1.5px;
         }
         &__text {
           width: 116px;
           height: 20px;
-          top: 87px;
-          left: 1460px;
-          font-family: Inter;
-          font-size: 14px;
-          font-weight: 400;
-          line-height: 16.94px;
-          text-align: left;
-          text-underline-position: from-font;
-          text-decoration-skip-ink: none;
-          background: #ffffff;
+          @include text-inter;
+          background: var(--whate);
         }
       }
     }
     &__info {
       width: 1236px;
       height: 434px;
-      top: 144px;
-      left: 341px;
       &__title {
         width: 397px;
         height: 120px;
-        top: 192px;
-        left: 341px;
-        font-family: Inter;
-        font-size: 48px;
-        font-weight: 700;
-        line-height: 58.09px;
-        text-align: left;
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
-        background: #ffffff;
+        @include h3;
+        background: var(--whate);
         &__white {
         }
         &__blue {
@@ -236,94 +185,52 @@ onMounted(fetchCharacters);
       &__paragraph {
         width: 397px;
         height: 24px;
-        top: 337px;
-        left: 341px;
-        font-family: Inter;
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 19.36px;
-        text-align: left;
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
-        background: #ffffff;
+        @include p;
+        background: var(--whate);
       }
       &__btn-moon {
         width: 90px;
         height: 32px;
-        top: 424px;
-        left: 341px;
         box-shadow: -4px 4px 4px 0px #0c0c0c;
         &__emoticons {
           width: 24px;
           height: 24px;
-          top: 428px;
-          left: 345px;
           padding: 2.07px 2.07px 3.18px 3.18px;
         }
         &__text {
           width: 50px;
           height: 20px;
-          top: 430px;
-          left: 377px;
-          font-family: Inter;
-          font-size: 14px;
-          font-weight: 400;
-          line-height: 16.94px;
-          text-align: left;
-          text-underline-position: from-font;
-          text-decoration-skip-ink: none;
-          background: #ffffff;
+          @include text-inter;
+          background: var(--whate);
         }
       }
       &__btn-sun {
         width: 76px;
         height: 32px;
-        top: 424px;
-        left: 447px;
         border-radius: 32px 0 0 0;
-        background: #313234;
+        background: var(--gray);
         &__emoticons {
           width: 24px;
           height: 24px;
-          top: 428px;
-          left: 451px;
           padding: 0.94px 0 0 0;
         }
         &__text {
           width: 36px;
           height: 20px;
-          top: 430px;
-          left: 483px;
-          font-family: Inter;
-          font-size: 14px;
-          font-weight: 400;
-          line-height: 16.94px;
-          text-align: left;
-          text-underline-position: from-font;
-          text-decoration-skip-ink: none;
-          background: #ffffff;
+          @include text-inter;
+          background: var(--whate);
         }
       }
       &__paragraph-blue {
         width: 397px;
         height: 24px;
-        top: 480px;
-        left: 341px;
-        font-family: Inter;
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 19.36px;
-        text-align: left;
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
-        background: #11b0c8;
+        @include p;
+        background: var(--blue);
       }
     }
     &__png {
       width: 774px;
       height: 434px;
-      top: 144px;
-      left: 803px;
       opacity: 80%;
     }
   }
@@ -332,58 +239,34 @@ onMounted(fetchCharacters);
       &__input {
         width: 1240px;
         height: 48px;
-        top: 644px;
-        left: 341px;
       }
       &__paragraph {
         width: 85px;
         height: 24px;
-        top: 656px;
-        left: 1108px;
-        font-family: Inter;
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 19.36px;
-        text-align: left;
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
+        @include p;
         background: #e4f4f480;
       }
       &__btn-pers {
         width: 129px;
         height: 32px;
-        top: 652px;
-        left: 1201px;
         border-radius: 32px 0 0 0;
-        background: #11b0c8;
+        background: var(--blue);
         &__emoticons {
           width: 24px;
           height: 24px;
-          top: 656px;
-          left: 1205px;
         }
         &__text {
           width: 88px;
           height: 20px;
-          top: 659px;
-          left: 1238px;
-          font-family: Inter;
-          font-size: 14px;
-          font-weight: 400;
-          line-height: 16.94px;
-          text-align: left;
-          text-underline-position: from-font;
-          text-decoration-skip-ink: none;
-          background: #ffffff;
+          @include text-inter;
+          background: var(--whate);
         }
       }
       &__btn-loc {
         width: 136px;
         height: 32px;
-        top: 652px;
-        left: 1338px;
         border-radius: 32px 0 0 0;
-        background: #313234;
+        background: var(--gray);
         &__emoticons {
           width: 24px;
           height: 24px;
@@ -394,95 +277,53 @@ onMounted(fetchCharacters);
         &__text {
           width: 96px;
           height: 20px;
-          top: 658px;
-          left: 1374px;
-          font-family: Inter;
-          font-size: 14px;
-          font-weight: 400;
-          line-height: 16.94px;
-          text-align: left;
-          text-underline-position: from-font;
-          text-decoration-skip-ink: none;
-          background: #ffffff;
+          @include text-inter;
+          background: var(--whate);
         }
       }
       &__btn-episod {
         width: 99px;
         height: 32px;
-        top: 652px;
-        left: 1482px;
         border-radius: 32px 0 0 0;
-        background: #313234;
+        background: var(--gray);
         &__emoticons {
           width: 24px;
           height: 24px;
-          top: 656px;
-          left: 1486px;
         }
         &__text {
           width: 59px;
           height: 20px;
-          top: 658px;
-          left: 1518px;
-          font-family: Inter;
-          font-size: 14px;
-          font-weight: 400;
-          line-height: 16.94px;
-          text-align: left;
-          text-underline-position: from-font;
-          text-decoration-skip-ink: none;
-          background: #ffffff;
+          @include text-inter;
+          background: var(--whate);
         }
       }
     }
     &__personages {
       width: 294px;
       height: 400px;
-      top: 812px;
-      left: 349px;
       border-radius: 8px 0 0 0;
-      background: #313234;
+      background: var(--gray);
       &__title {
         width: 199px;
         height: 16px;
-        top: 1044px;
-        left: 366px;
-        font-family: Inter;
-        font-size: 16px;
-        font-weight: 700;
-        line-height: 19.36px;
-        text-align: left;
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
-        background: #ffffff;
+        @include text-inter;
+        background: var(--whate);
       }
       &__btn {
         width: 115px;
         height: 32px;
-        top: 1164px;
-        left: 512px;
         border-radius: 32px 0 0 0;
-        background: #313234;
+        background: var(--gray);
         &__emoticons {
           width: 24px;
           height: 24px;
-          top: 1168px;
-          left: 516px;
           padding: 2.25px;
         }
         &__text {
           width: 75px;
           height: 20px;
-          top: 1170px;
-          left: 548px;
-          font-family: Inter;
-          font-size: 14px;
-          font-weight: 400;
-          line-height: 16.94px;
-          text-align: left;
-          text-underline-position: from-font;
-          text-decoration-skip-ink: none;
-          background: #ffffff;
+          @include text-inter;
+          background: var(--whate);
         }
       }
       &__loading {
@@ -494,30 +335,18 @@ onMounted(fetchCharacters);
           &__img {
             width: 262px;
             height: 200px;
-            top: 828px;
-            left: 365px;
-            border-radius: 16px 0px 0px 0px;
+            border-radius: 16px 0 0 0;
           }
           &__info {
             &__name {
               width: 199px;
               height: 16px;
-              top: 1044px;
-              left: 366px;
-              font-family: Inter;
-              font-size: 16px;
-              font-weight: 700;
-              line-height: 19.36px;
-              text-align: left;
-              text-underline-position: from-font;
-              text-decoration-skip-ink: none;
-              background: #ffffff;
+              @include text-inter;
+              background: var(--whate);
             }
             &__species {
               width: 125px;
               height: 16px;
-              top: 1124px;
-              left: 366px;
             }
           }
         }

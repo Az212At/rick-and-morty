@@ -15,7 +15,7 @@
       <p class="cover-view__subtitle">Wubba Lubba Dub Dub!</p>
     </div>
     <div class="cover-view__details">
-      <p class="home-view__details-text">
+      <p class="home-view__details__text">
         Personagens, localizações, episódios e muito mais.
       </p>
     </div>
@@ -26,12 +26,13 @@
 </template>
 
 <style lang="scss" scoped>
+@import "@/scss/variables.scss";
 @import "@/scss/mixins.scss";
 
 .cover-view {
   width: 1920px;
   height: 1080px;
-  background-color: black;
+  background-color: var(--black);
 
   &__logo {
     > img {
@@ -46,37 +47,28 @@
   &__content {
     width: 539px;
     height: 314px;
-    position: absolute;
     top: 399px;
     left: 210px;
+  }
 
-    &__header {
-      margin-bottom: 16px;
+  &__header {
+    margin-bottom: 16px;
+  }
 
-      &__title {
-        font-family: Inter, serif;
-        font-size: 72px;
-        font-weight: 700;
-        line-height: 87.14px;
-      }
+  &__title {
+    @include h1;
+  }
 
-      &__title-white {
-        color: #ffffff;
-      }
+  &__title-white {
+    color: var(--whate);
+  }
 
-      &__title-highlight {
-        color: #0000ff;
-      }
-    }
+  &__title-highlight {
+    color: var(--blue);
+  }
 
-    &__subtitle {
-      padding: 8px;
-      font-family: Inter, sans-serif;
-      font-size: 18px;
-      line-height: 22px;
-      font-weight: 400;
-      color: #44c765;
-    }
+  &__subtitle {
+    @include p;
   }
 
   &__details {
@@ -84,18 +76,16 @@
     height: 84px;
     top: 884px;
     left: 210px;
-    position: absolute;
 
-    &-text {
+    &__text {
       @include text-inter;
-      color: #ffffff;
+      color: var(--whate);
       padding: 8px;
     }
   }
 
   &__images {
     left: 897px;
-    position: absolute;
 
     > img {
       width: 773px;
