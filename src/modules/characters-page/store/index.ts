@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import { IPost } from "@/modules/post-page/types";
-import { apiGetPosts } from "@/modules/post-page/api";
+import { IPost } from "@/modules/characters-page/types";
+import { apiGetPosts } from "@/modules/characters-page/api";
 
 export const usePostStore = defineStore("post-store", {
   state: () => ({

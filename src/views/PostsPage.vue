@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, defineComponent, onMounted, ref } from "vue";
-import { usePostStore } from "@/modules/post-page/store";
-import PostCard from "@/modules/post-page/components/PostCard.vue";
+import { usePostStore } from "@/modules/characters-page/store";
+import PostCard from "@/modules/characters-page/components/CharacterCard.vue";
 
 defineComponent({
   name: "PostsPage",
