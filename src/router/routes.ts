@@ -29,7 +29,7 @@ export const routes: RouteRecordRaw[] = [
       {
         path: RoutePaths.LoginView,
         name: RouteNames.LOGIN_VIEW,
-        component: () => import("@/views/LoginPage.vue"),
+        component: () => import("@/views/LoginView.vue"),
       },
     ],
   },
