@@ -1,24 +1,31 @@
+import { ref } from "vue";
 import { defineStore } from "pinia";
-import { IPost } from "@/modules/characters-page/types";
-import { apiGetPosts } from "@/modules/characters-page/api";
+import type { Character } from "@/modules/characters-page/types";
+import { getCharacters } from "@/modules/characters-page/api";
 
-export const usePostStore = defineStore("post-store", {
-  state: () => ({
-    posts: [] as Array<IPost>,
-  }),
+export const useCharactersStore = defineStore("characters", () => {
+  const characters = ref<Character[]>([]);
+  const isLoading = ref(false);
+  const errorMessage = ref("");
 
-  actions: {
-    getPosts() {
-      return new Promise((resolve, reject) => {
-        apiGetPosts()
-          .then((response) => {
-            this.posts = response.data;
-            resolve(response);
-          })
-          .catch((error) => {
-            reject(error);
-          });
-      });
-    },
-  },
+  const fetchCharacters = async () => {
+    isLoading.value = true;
+    errorMessage.value = "";
+
+    try {
+      const response = await getCharacters();
+      characters.value = response.data.results;
+    } catch (error) {
+      errorMessage.value = "Ошибка загрузки персонажей";
+    } finally {
+      isLoading.value = false;
+    }
+  };
+
+  return {
+    characters,
+    isLoading,
+    errorMessage,
+    fetchCharacters,
+  };
 });

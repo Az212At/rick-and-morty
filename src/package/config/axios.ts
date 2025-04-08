@@ -1,8 +1,19 @@
 import axios from "axios";
 
-const instance = axios.create({
-  baseURL: "https://rickandmortyapi.com/api",
-  withCredentials: false,
+export const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+
+const API = axios.create({
+  baseURL: BASE_URL,
+  withCredentials: true,
 });
 
-export default instance;
+API.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
+
+export default API;

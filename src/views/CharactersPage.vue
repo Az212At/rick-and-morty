@@ -1,40 +1,28 @@
 <script lang="ts" setup>
-import { ref, onMounted } from "vue";
-import axios from "@/package/config/axios";
-import type { Character } from "@/modules/characters-page/types";
+import { onMounted } from "vue";
 import CharacterCard from "@/modules/characters-page/components/CharacterCard.vue";
-import { getCharacters } from "@/modules/characters-page/api";
+import { useCharactersStore } from "@/modules/characters-page/store";
 
-const characters = ref<Character[]>([]);
-const isLoading = ref(true);
-const errorMessage = ref("");
+const store = useCharactersStore();
 
-const fetchCharacters = async () => {
-  try {
-    const response = await axios.get(
-      "https://rickandmortyapi.com/api/character"
-    );
-    characters.value = await getCharacters();
-  } catch (error) {
-    errorMessage.value = "Ошибка загрузки персонажей";
-  } finally {
-    isLoading.value = false;
-  }
-};
-
-onMounted(fetchCharacters);
+onMounted(() => {
+  store.fetchCharacters();
+});
 </script>
 
 <template>
   <div class="characters-page">
     <h1>Персонажи</h1>
-    <p v-if="isLoading">Загрузка...</p>
-    <p v-if="errorMessage" class="error">
-      {{ errorMessage }}
+    <p v-if="store.isLoading">Загрузка...</p>
+    <p v-if="store.errorMessage" class="characters-page__error">
+      {{ store.errorMessage }}
     </p>
-    <div v-if="!isLoading && !errorMessage" class="characters-list">
+    <div
+      v-if="!store.isLoading && !store.errorMessage"
+      class="characters-page__list"
+    >
       <CharacterCard
-        v-for="character in characters"
+        v-for="character in store.characters"
         :key="character.id"
         :character="character"
       />
@@ -46,13 +34,15 @@ onMounted(fetchCharacters);
 .characters-page {
   text-align: center;
 }
-.characters-list {
+
+.characters-page__list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 16px;
   padding: 16px;
 }
-.error {
+
+.characters-page__error {
   color: red;
 }
 </style>
