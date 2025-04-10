@@ -1,9 +1,9 @@
-import API from "@/package/config/axios";
-import { Character } from "@/modules/characters-page/types";
 import type { AxiosResponse } from "axios";
+import RickAndMortyAPI from "@/package/config/rick-and-morty-api";
+import type { Character } from "@/modules/characters-page/types";
 
 export const getCharacters = (): Promise<
   AxiosResponse<{ results: Character[] }>
 > => {
-  return API.get("/character");
+  return RickAndMortyAPI.get("/character");
 };

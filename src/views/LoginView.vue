@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
+import { RouteNames } from "@/router/routes";
 import MainInput from "@/ui/MainInput.vue";
 import MainButton from "@/ui/MainButton.vue";
 
@@ -18,7 +19,7 @@ const validateForm = computed(() => {
 const login = () => {
   if (validateForm.value) {
     localStorage.setItem("email", email.value);
-    router.push({ name: "HomeView" });
+    router.push({ name: RouteNames.CHARACTERS_VIEW });
   }
 };
 </script>
