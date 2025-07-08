@@ -10,20 +10,21 @@ export const useEpisodesStore = defineStore("episodes", () => {
   const currentPage = ref(1);
   const totalPages = ref(1);
 
-  const fetchEpisodes = async (page = 1) => {
+  const fetchEpisodes = (page = 1) => {
     isLoading.value = true;
     errorMessage.value = "";
-
-    try {
-      const response = await getEpisodes(page);
-      episodes.value = response.data.results;
-      currentPage.value = page;
-      totalPages.value = response.data.info.pages;
-    } catch (error) {
-      errorMessage.value = "Ошибка загрузки эпизодов";
-    } finally {
-      isLoading.value = false;
-    }
+    getEpisodes(page)
+      .then((response) => {
+        episodes.value = response.data.results;
+        currentPage.value = page;
+        totalPages.value = response.data.info.pages;
+      })
+      .catch(() => {
+        errorMessage.value = "Ошибка загрузки эпизодов";
+      })
+      .finally(() => {
+        isLoading.value = false;
+      });
   };
 
   return {

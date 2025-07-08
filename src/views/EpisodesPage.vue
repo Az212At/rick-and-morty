@@ -17,25 +17,19 @@ const changePage = (page: number) => {
 <template>
   <div class="episodes-page">
     <h1>Эпизоды</h1>
-
     <p v-if="store.isLoading">Загрузка...</p>
-
     <p v-if="store.errorMessage" class="episodes-page__error">
       {{ store.errorMessage }}
     </p>
-
     <div
       v-if="!store.isLoading && !store.errorMessage"
-      class="episodes-page__content"
+      class="episodes-page__list"
     >
-      <div class="episodes-page__list">
-        <EpisodeCard
-          v-for="episode in store.episodes"
-          :key="episode.id"
-          :episode="episode"
-        />
-      </div>
-
+      <EpisodeCard
+        v-for="episode in store.episodes"
+        :key="episode.id"
+        :episode="episode"
+      />
       <div class="episodes-page__pagination">
         <button
           type="button"

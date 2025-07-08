@@ -8,18 +8,19 @@ export const useCharactersStore = defineStore("characters", () => {
   const isLoading = ref(false);
   const errorMessage = ref("");
 
-  const fetchCharacters = async () => {
+  const fetchCharacters = () => {
     isLoading.value = true;
     errorMessage.value = "";
-
-    try {
-      const response = await getCharacters();
-      characters.value = response.data.results;
-    } catch (error) {
-      errorMessage.value = "Ошибка загрузки персонажей";
-    } finally {
-      isLoading.value = false;
-    }
+    getCharacters()
+      .then((response) => {
+        characters.value = response.data.results;
+      })
+      .catch(() => {
+        errorMessage.value = "Ошибка загрузки персонажей";
+      })
+      .finally(() => {
+        isLoading.value = false;
+      });
   };
 
   return {
