@@ -1,8 +1,5 @@
-@use "mixins";
-@use "main";
-@use "@/scss/theme/theme.scss";
-
-@import "@/assets/fonts/Inter/Inter.css";
-@import "normalize.scss";
-@import "variables.scss";
-@import "icons.scss";
+@use "main.scss" as *;
+@use "normalize.scss" as *;
+@use "icons.scss" as *;
+@use "@/scss/theme/theme.scss" as *;
+@use "@/assets/fonts/Inter/Inter.css" as *;

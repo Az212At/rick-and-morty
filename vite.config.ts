@@ -2,7 +2,7 @@
 
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import eslintPlugin from "vite-plugin-eslint";
+import eslintPlugin from "vite-plugin-eslint2";
 import path, { resolve } from "path";
 import tsconfigPaths from "vite-tsconfig-paths";
 import VueDevTools from "vite-plugin-vue-devtools";
@@ -42,7 +42,7 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         additionalData:
-          '@import "src/scss/variables.scss"; @import "src/scss/mixins.scss";',
+          '@use "@/scss/variables.scss" as *; @use "@/scss/mixins.scss" as *;',
       },
     },
   },
