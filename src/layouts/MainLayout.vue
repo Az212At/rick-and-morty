@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { defineComponent } from "vue";
+import HeaderView from "@/views/HeaderView.vue";
 
 defineComponent({
   name: "MainLayout",
@@ -9,6 +10,7 @@ defineComponent({
 <template>
   <div class="main-layout">
     <RouterView />
+    <HeaderView />
   </div>
 </template>
 
