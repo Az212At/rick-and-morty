@@ -33,6 +33,8 @@ onMounted(() => {
 <style scoped>
 .characters-page {
   text-align: center;
+  background-color: #000;
+  color: white;
 }
 
 .characters-page__list {

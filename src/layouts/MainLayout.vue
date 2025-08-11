@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { defineComponent } from "vue";
 import HeaderView from "@/views/HeaderView.vue";
+import CharactersPage from "@/views/CharactersPage.vue";
+import EpisodesPage from "@/views/EpisodesPage.vue";
 
 defineComponent({
   name: "MainLayout",
@@ -11,6 +13,8 @@ defineComponent({
   <div class="main-layout">
     <RouterView />
     <HeaderView />
+    <CharactersPage />
+    <EpisodesPage />
   </div>
 </template>
 
