@@ -12,20 +12,22 @@ onMounted(() => {
 
 <template>
   <div class="characters-page">
-    <h1>Персонажи</h1>
-    <p v-if="store.isLoading">Загрузка...</p>
-    <p v-if="store.errorMessage" class="characters-page__error">
-      {{ store.errorMessage }}
-    </p>
-    <div
-      v-if="!store.isLoading && !store.errorMessage"
-      class="characters-page__list"
-    >
-      <CharacterCard
-        v-for="character in store.characters"
-        :key="character.id"
-        :character="character"
-      />
+    <div class="characters-page__container">
+      <h1>Персонажи</h1>
+      <p v-if="store.isLoading">Загрузка...</p>
+      <p v-if="store.errorMessage" class="characters-page__error">
+        {{ store.errorMessage }}
+      </p>
+      <div
+        v-if="!store.isLoading && !store.errorMessage"
+        class="characters-page__list"
+      >
+        <CharacterCard
+          v-for="character in store.characters"
+          :key="character.id"
+          :character="character"
+        />
+      </div>
     </div>
   </div>
 </template>

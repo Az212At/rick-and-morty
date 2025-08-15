@@ -5,23 +5,25 @@ import MainButton from "@/ui/MainButton.vue";
 
 <template>
   <header class="the-header">
-    <div class="container">
+    <div class="the-header__container">
       <div class="the-header__top">
-        <img src="@/assets/logo.svg" alt="Логотип" class="logo" />
-        <MainButton label="Избранное" class="favorite-btn" />
+        <img src="@/assets/logo.svg" alt="Логотип" class="the-header__logo" />
+        <MainButton label="Избранное" class="the-header__favorite-btn" />
       </div>
-
-      <div class="the-header__content">
+      <div class="the-header__main">
         <div class="the-header__text">
-          <h1>Saiba tudo em um só <span>lugar</span>.</h1>
-          <p>Personagens, localizações, episódios e muito mais.</p>
+          <h1 class="the-header__title">
+            Saiba tudo em um só <span>lugar</span>.
+          </h1>
+          <p class="the-header__subtitle">
+            Personagens, localizações, episódios e muito mais.
+          </p>
           <ThemeToggle />
           <p class="quote">Ah sim, Porr@#$&*</p>
         </div>
-      </div>
-
-      <div class="the-header__image">
-        <img src="@/assets/img/HighlightImageRick.png" alt="Rick" />
+        <div class="the-header__image">
+          <img src="@/assets/img/HighlightImageRick.png" alt="Rick" />
+        </div>
       </div>
     </div>
   </header>
@@ -33,7 +35,7 @@ import MainButton from "@/ui/MainButton.vue";
   background: black;
   color: white;
 
-  .container {
+  &__container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1rem;
@@ -43,49 +45,52 @@ import MainButton from "@/ui/MainButton.vue";
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    .logo {
-      height: 40px;
-    }
-
-    .favorite-btn {
-      background-color: #00b5cc;
-      border-radius: 20px;
-      padding: 8px 16px;
-      font-size: 14px;
-    }
   }
 
-  &__content {
+  .logo {
+    height: 40px;
+  }
+
+  .favorite-btn {
+    background-color: #00b5cc;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  &__main {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-top: 3rem;
     flex-wrap: wrap;
+    gap: 2rem;
   }
 
   &__text {
     flex: 1 1 500px;
-    h1 {
-      font-size: 2.5rem;
-      font-weight: bold;
-      line-height: 1.2;
-      span {
-        color: #00b5cc;
-      }
-    }
+  }
 
-    .subtitle {
-      margin-top: 1rem;
-      font-size: 1.125rem;
-      color: #ccc;
-    }
+  &__title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1.2;
 
-    .quote {
-      margin-top: 1.5rem;
-      font-style: italic;
-      color: #888;
+    span {
+      color: #00b5cc;
     }
+  }
+
+  &__subtitle {
+    margin-top: 1rem;
+    font-size: 1.125rem;
+    color: #ccc;
+  }
+
+  &__quote {
+    margin-top: 1.5rem;
+    font-style: italic;
+    color: #888;
   }
 
   &__image {
@@ -93,7 +98,7 @@ import MainButton from "@/ui/MainButton.vue";
     text-align: right;
 
     img {
-      max-width: 350px;
+      max-width: 700px;
       width: 100%;
       height: auto;
     }
