@@ -11,7 +11,6 @@ defineComponent({
 
 <template>
   <div class="main-layout">
-    <RouterView />
     <HeaderView />
     <CharactersPage />
     <EpisodesPage />

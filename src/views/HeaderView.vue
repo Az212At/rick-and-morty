@@ -47,8 +47,9 @@ import MainButton from "@/ui/MainButton.vue";
     align-items: center;
   }
 
-  .logo {
-    height: 40px;
+  &__logo {
+    max-width: 180px;
+    height: auto;
   }
 
   .favorite-btn {
@@ -63,12 +64,15 @@ import MainButton from "@/ui/MainButton.vue";
     align-items: center;
     justify-content: space-between;
     margin-top: 3rem;
-    flex-wrap: wrap;
     gap: 2rem;
   }
 
   &__text {
     flex: 1 1 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 3rem;
   }
 
   &__title {
