@@ -32,7 +32,7 @@ import MainButton from "@/ui/MainButton.vue";
 <style scoped lang="scss">
 .the-header {
   padding: 1rem;
-  background: black;
+  background-color: #000000;
   color: white;
 
   &__container {

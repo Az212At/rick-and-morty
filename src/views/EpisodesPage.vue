@@ -64,7 +64,6 @@ const changePage = (page: number) => {
 <style scoped>
 .episodes-page {
   text-align: center;
-  background-color: #000;
   color: white;
 }
 

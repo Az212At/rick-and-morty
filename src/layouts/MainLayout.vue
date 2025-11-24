@@ -22,5 +22,7 @@ defineComponent({
 <style lang="scss" scoped>
 .main-layout {
   height: 100%;
+  background-color: #1f1f1f;
+  min-height: 100vh;
 }
 </style>
