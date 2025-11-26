@@ -11,12 +11,12 @@ defineProps({
 });
 
 const getStatusClass = (status: CharacterStatus) => {
-  const statusMap: Record<CharacterStatus, string> = {
-    [CharacterStatus.Alive]: "character-card__status--alive",
-    [CharacterStatus.Dead]: "character-card__status--dead",
-    [CharacterStatus.Unknown]: "character-card__status--unknown",
+  const map: Record<CharacterStatus, string> = {
+    [CharacterStatus.Alive]: "#9EFF00",
+    [CharacterStatus.Dead]: "#FF4E4E",
+    [CharacterStatus.Unknown]: "#A0A0A0",
   };
-  return statusMap[status] || "character-card__status--unknown";
+  return map[status] ?? "#A0A0A0";
 };
 </script>
 
@@ -27,75 +27,111 @@ const getStatusClass = (status: CharacterStatus) => {
       :alt="character.name"
       class="character-card__image"
     />
-    <h3 class="character-card__name">{{ character.name }}</h3>
-    <p class="character-card__status-wrapper">
-      <span
-        class="character-card__status"
-        :class="[getStatusClass(character.status)]"
-      />
-      {{ character.status }}
-    </p>
-    <p class="character-card__info">{{ character.species }}</p>
-    <p class="character-card__info">{{ character.origin.name }}</p>
+    <div class="character-card__body">
+      <div class="character-card__header">
+        <h3 class="character-card__name">{{ character.name }}</h3>
+        <button class="character-card__fav-btn" type="button">💙</button>
+      </div>
+      <div class="character-card__row">
+        <span
+          class="character-card__status"
+          :style="{ background: getStatusClass(character.status) }"
+        ></span>
+        <p>{{ character.status }}</p>
+      </div>
+      <div class="character-card__row">
+        <span>👽</span>
+        <p>{{ character.species }}</p>
+      </div>
+      <div class="character-card__row">
+        <span>🌎</span>
+        <p>{{ character.origin.name }}</p>
+        >
+      </div>
+      <button class="card__more-btn" type="button">ⓘ Saiba mais</button>
+    </div>
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
 .character-card {
-  background-color: #222;
-  padding: 16px;
-  border-radius: 12px;
-  text-align: center;
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s ease;
-
-  &:hover {
-    transform: scale(1.03);
-  }
+  background: #1e1e1e;
+  border-radius: 14px;
+  overflow: hidden;
+  width: 240px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
 
   &__image {
     width: 100%;
-    border-radius: 8px;
+    height: 200px;
     object-fit: cover;
+    border-bottom: 2px solid #333;
+  }
+
+  &__body {
+    padding: 14px;
+    color: #fff;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
   }
 
   &__name {
-    font-size: 20px;
-    margin: 12px 0 8px;
+    font-size: 18px;
+    font-weight: 600;
   }
 
-  &__status-wrapper {
+  &__fav-btn {
+    background: transparent;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+  }
+
+  &__row {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 6px;
-    margin-bottom: 8px;
-    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 6px;
+
+    span {
+      width: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
-  &__status {
+  &__dot {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-
-    &--alive {
-      background-color: #00ff00;
-    }
-
-    &--dead {
-      background-color: #ff0000;
-    }
-
-    &--unknown {
-      background-color: #888;
-    }
   }
 
-  &__info {
-    margin: 4px 0;
+  &__more-btn {
+    margin-top: 10px;
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #bbb;
     font-size: 14px;
-    color: #ccc;
+    padding: 6px 0;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    &:hover {
+      color: #fff;
+    }
   }
 }
 </style>
