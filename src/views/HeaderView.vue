@@ -11,7 +11,7 @@
           <h1 class="the-header__title">
             Всё в одном <span>месте</span>.
           </h1>
-          <p class="the-header__subtitle">Персонажи, локации и эпизоды</p>
+          <p class="the-header__subtitle">Персонажи и эпизоды</p>
         </div>
         <div class="the-header__image">
           <img src="@/assets/img/HighlightImageRick.png" alt="Rick" />
