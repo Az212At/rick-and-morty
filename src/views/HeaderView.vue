@@ -1,25 +1,17 @@
-<script lang="ts" setup>
-import ThemeToggle from "@/modules/TheHeader/components/ThemeToggle.vue";
-import MainButton from "@/ui/MainButton.vue";
-</script>
+<script lang="ts" setup></script>
 
 <template>
   <header class="the-header">
     <div class="the-header__container">
       <div class="the-header__top">
         <img src="@/assets/logo.svg" alt="Логотип" class="the-header__logo" />
-        <MainButton label="Избранное" class="the-header__favorite-btn" />
       </div>
       <div class="the-header__main">
         <div class="the-header__text">
           <h1 class="the-header__title">
-            Saiba tudo em um só <span>lugar</span>.
+            Всё в одном <span>месте</span>.
           </h1>
-          <p class="the-header__subtitle">
-            Personagens, localizações, episódios e muito mais.
-          </p>
-          <ThemeToggle />
-          <p class="quote">Ah sim, Porr@#$&*</p>
+          <p class="the-header__subtitle">Персонажи, локации и эпизоды</p>
         </div>
         <div class="the-header__image">
           <img src="@/assets/img/HighlightImageRick.png" alt="Rick" />

@@ -16,29 +16,29 @@ const setFilter = (value: "characters" | "locations" | "episodes") => {
     <div class="filter-bar__search">
       <MainInput
         v-model="search"
-        placeholder="Personagem, episódio, localização..."
+        placeholder="Персонажи, эпизоды, локации"
       />
     </div>
 
     <div class="filter-bar__filters">
-      <span class="filter-bar__label">Filtrar por:</span>
+      <span class="filter-bar__label">Перейти к</span>
 
       <MainButton
-        label="Personagens"
+        label="персонажам"
         class="filter-tag"
         :class="{ active: activeFilter === 'characters' }"
         @click="setFilter('characters')"
       />
 
       <MainButton
-        label="Localizações"
+        label="локациям"
         class="filter-tag"
         :class="{ active: activeFilter === 'locations' }"
         @click="setFilter('locations')"
       />
 
       <MainButton
-        label="Episódio"
+        label="эпизодам"
         class="filter-tag"
         :class="{ active: activeFilter === 'episodes' }"
         @click="setFilter('episodes')"
