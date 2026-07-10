@@ -42,9 +42,10 @@ onMounted(() => {
 
 .characters-page__list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  padding: 16px;
+  grid-template-columns: repeat(auto-fit, 240px);
+  justify-content: center;
+  gap: 24px;
+  padding: 24px;
 }
 
 .characters-page__error {
