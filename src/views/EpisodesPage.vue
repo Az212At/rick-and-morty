@@ -8,10 +8,6 @@ const store = useEpisodesStore();
 onMounted(() => {
   store.fetchEpisodes();
 });
-
-const changePage = (page: number) => {
-  store.fetchEpisodes(page);
-};
 </script>
 
 <template>
@@ -31,33 +27,6 @@ const changePage = (page: number) => {
           :key="episode.id"
           :episode="episode"
         />
-        <div class="episodes-page__pagination">
-          <button
-            type="button"
-            :disabled="store.currentPage === 1"
-            @click="changePage(store.currentPage - 1)"
-          >
-            ←
-          </button>
-
-          <button
-            v-for="page in store.totalPages"
-            :key="page"
-            type="button"
-            :class="{ active: page === store.currentPage }"
-            @click="changePage(page)"
-          >
-            {{ page }}
-          </button>
-
-          <button
-            type="button"
-            :disabled="store.currentPage === store.totalPages"
-            @click="changePage(store.currentPage + 1)"
-          >
-            →
-          </button>
-        </div>
       </div>
     </div>
   </section>
