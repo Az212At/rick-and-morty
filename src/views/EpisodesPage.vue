@@ -15,50 +15,52 @@ const changePage = (page: number) => {
 </script>
 
 <template>
-  <div class="episodes-page">
-    <h1>Эпизоды</h1>
-    <p v-if="store.isLoading">Загрузка...</p>
-    <p v-if="store.errorMessage" class="episodes-page__error">
-      {{ store.errorMessage }}
-    </p>
-    <div
-      v-if="!store.isLoading && !store.errorMessage"
-      class="episodes-page__list"
-    >
-      <EpisodeCard
-        v-for="episode in store.episodes"
-        :key="episode.id"
-        :episode="episode"
-      />
-      <div class="episodes-page__pagination">
-        <button
-          type="button"
-          :disabled="store.currentPage === 1"
-          @click="changePage(store.currentPage - 1)"
-        >
-          ←
-        </button>
+  <section id="episodes">
+    <div class="episodes-page">
+      <h1>Эпизоды</h1>
+      <p v-if="store.isLoading">Загрузка...</p>
+      <p v-if="store.errorMessage" class="episodes-page__error">
+        {{ store.errorMessage }}
+      </p>
+      <div
+        v-if="!store.isLoading && !store.errorMessage"
+        class="episodes-page__list"
+      >
+        <EpisodeCard
+          v-for="episode in store.episodes"
+          :key="episode.id"
+          :episode="episode"
+        />
+        <div class="episodes-page__pagination">
+          <button
+            type="button"
+            :disabled="store.currentPage === 1"
+            @click="changePage(store.currentPage - 1)"
+          >
+            ←
+          </button>
 
-        <button
-          v-for="page in store.totalPages"
-          :key="page"
-          type="button"
-          :class="{ active: page === store.currentPage }"
-          @click="changePage(page)"
-        >
-          {{ page }}
-        </button>
+          <button
+            v-for="page in store.totalPages"
+            :key="page"
+            type="button"
+            :class="{ active: page === store.currentPage }"
+            @click="changePage(page)"
+          >
+            {{ page }}
+          </button>
 
-        <button
-          type="button"
-          :disabled="store.currentPage === store.totalPages"
-          @click="changePage(store.currentPage + 1)"
-        >
-          →
-        </button>
+          <button
+            type="button"
+            :disabled="store.currentPage === store.totalPages"
+            @click="changePage(store.currentPage + 1)"
+          >
+            →
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <style scoped>

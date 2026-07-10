@@ -1,25 +1,23 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import MainInput from "@/ui/MainInput.vue";
 import MainButton from "@/ui/MainButton.vue";
 
-const search = ref("");
-const activeFilter = ref<"characters" | "locations" | "episodes">("characters");
+const emit = defineEmits({
+  scrollTo: (section: "characters" | "episodes") => true,
+});
 
-const setFilter = (value: "characters" | "locations" | "episodes") => {
+const search = ref("");
+
+const activeFilter = ref<"characters" | "episodes">("characters");
+
+const setFilter = (value: "characters" | "episodes") => {
   activeFilter.value = value;
+  emit("scrollTo", value);
 };
 </script>
 
 <template>
   <div class="filter-bar">
-    <div class="filter-bar__search">
-      <MainInput
-        v-model="search"
-        placeholder="Персонажи, эпизоды, локации"
-      />
-    </div>
-
     <div class="filter-bar__filters">
       <span class="filter-bar__label">Перейти к</span>
 
@@ -28,13 +26,6 @@ const setFilter = (value: "characters" | "locations" | "episodes") => {
         class="filter-tag"
         :class="{ active: activeFilter === 'characters' }"
         @click="setFilter('characters')"
-      />
-
-      <MainButton
-        label="локациям"
-        class="filter-tag"
-        :class="{ active: activeFilter === 'locations' }"
-        @click="setFilter('locations')"
       />
 
       <MainButton

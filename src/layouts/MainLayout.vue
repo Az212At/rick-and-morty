@@ -8,12 +8,21 @@ import FilterBar from "@/ui/FilterBar.vue";
 defineComponent({
   name: "MainLayout",
 });
+
+const scrollToSection = (
+  section: "characters" | "episodes",
+) => {
+  document.getElementById(section)?.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
+};
 </script>
 
 <template>
   <div class="main-layout">
     <HeaderView />
-    <FilterBar />
+    <FilterBar @scrollTo="scrollToSection" />
     <CharactersPage />
     <EpisodesPage />
   </div>
