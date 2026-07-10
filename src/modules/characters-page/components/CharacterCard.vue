@@ -63,6 +63,24 @@ const getStatusClass = (status: CharacterStatus) => {
   display: flex;
   flex-direction: column;
 
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
+
+  &:hover {
+  transform: scale(1.04);
+  filter: brightness(1.15);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+  }
+
+   &__image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 2px solid #333;
+  }
+
   &__image {
     width: 100%;
     height: 200px;
