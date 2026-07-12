@@ -30,25 +30,20 @@ const getStatusClass = (status: CharacterStatus) => {
     <div class="character-card__body">
       <div class="character-card__header">
         <h3 class="character-card__name">{{ character.name }}</h3>
-        <button class="character-card__fav-btn" type="button">💙</button>
       </div>
       <div class="character-card__row">
-        <span
-          class="character-card__status"
-          :style="{ background: getStatusClass(character.status) }"
-        ></span>
+        <span><img src="@/assets/icons/icon-status.svg" alt="status" class="icon-status" /></span>
         <p>{{ character.status }}</p>
       </div>
       <div class="character-card__row">
-        <span>👽</span>
+        <span><img src="@/assets/icons/icon-human.svg" alt="human" class="icon-human" /></span>
         <p>{{ character.species }}</p>
       </div>
       <div class="character-card__row">
-        <span>🌎</span>
+        <span><img src="@/assets/icons/icon-planet.svg" alt="planet" class="icon-planet" /></span>
         <p>{{ character.origin.name }}</p>
         >
       </div>
-      <button class="card__more-btn" type="button">ⓘ Saiba mais</button>
     </div>
   </div>
 </template>

@@ -36,6 +36,7 @@ onMounted(() => {
 
 <style scoped>
 .characters-page {
+  padding-top: 24px;
   text-align: center;
   color: white;
 }

@@ -48,6 +48,7 @@ onMounted(() => {
   gap: 16px;
   margin-bottom: 20px;
   padding: 0 16px;
+  padding-top: 24px;
 }
 
 .episodes-page__pagination {

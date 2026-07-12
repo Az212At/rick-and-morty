@@ -1,7 +1,7 @@
 export enum CharacterStatus {
   Alive = "Alive",
   Dead = "Dead",
-  Unknown = "unknown",
+  Unknown = "неизвестно",
 }
 
 export interface Character {
