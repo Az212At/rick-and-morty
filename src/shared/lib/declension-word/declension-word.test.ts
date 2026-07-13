@@ -1,4 +1,4 @@
-import declensionWord from "@/shared/libdeclension-word";
+import declensionWord from "@/shared/lib/declension-word/declension-word";
 
 describe("declension-word", () => {
   test("0 баллов", () => {

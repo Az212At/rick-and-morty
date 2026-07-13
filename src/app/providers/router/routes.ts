@@ -1,23 +1,23 @@
 import { RouteRecordRaw } from "vue-router";
-import LoginLayout from "@/layouts/LoginLayout.vue";
-import MainLayout from "@/layouts/MainLayout.vue";
+import LoginLayout from "@/app/layouts/LoginLayout.vue";
+import MainLayout from "@/app/layouts/MainLayout.vue";
 
 export enum RouteNames {
   LOGIN_LAYOUT = "LoginLayout",
-  LOGIN_VIEW = "LoginView",
+  LOGIN_PAGE = "LoginPage",
   MAIN_LAYOUT = "MainLayout",
-  CHARACTERS_VIEW = "CharactersView",
-  EPISODES_VIEW = "EpisodesView",
-  NOT_FOUND = "NotFound",
+  CHARACTERS_PAGE = "CharactersPage",
+  EPISODES_PAGE = "EpisodesPage",
+  NOT_FOUND_PAGE = "NotFoundPage",
 }
 
 export const RoutePaths: Record<RouteNames, string> = {
   [RouteNames.LOGIN_LAYOUT]: "/login",
-  [RouteNames.LOGIN_VIEW]: "",
+  [RouteNames.LOGIN_PAGE]: "",
   [RouteNames.MAIN_LAYOUT]: "/",
-  [RouteNames.CHARACTERS_VIEW]: "characters",
-  [RouteNames.EPISODES_VIEW]: "episodes",
-  [RouteNames.NOT_FOUND]: "/:pathMatch(.*)*",
+  [RouteNames.CHARACTERS_PAGE]: "characters",
+  [RouteNames.EPISODES_PAGE]: "episodes",
+  [RouteNames.NOT_FOUND_PAGE]: "/:pathMatch(.*)*",
 };
 
 export const routes: RouteRecordRaw[] = [
@@ -27,9 +27,9 @@ export const routes: RouteRecordRaw[] = [
     component: LoginLayout,
     children: [
       {
-        path: RoutePaths.LoginView,
-        name: RouteNames.LOGIN_VIEW,
-        component: () => import("@/pages/login/ui/LoginView.vue"),
+        path: RoutePaths.LoginPage,
+        name: RouteNames.LOGIN_PAGE,
+        component: () => import("@/pages/login/ui/LoginPage.vue"),
       },
     ],
   },
@@ -39,20 +39,20 @@ export const routes: RouteRecordRaw[] = [
     component: MainLayout,
     children: [
       {
-        path: RoutePaths.CharactersView,
-        name: RouteNames.CHARACTERS_VIEW,
+        path: RoutePaths.CharactersPage,
+        name: RouteNames.CHARACTERS_PAGE,
         component: () => import("@/pages/characters/ui/CharactersPage.vue"),
       },
       {
-        path: RoutePaths.EpisodesView,
-        name: RouteNames.EPISODES_VIEW,
+        path: RoutePaths.EpisodesPage,
+        name: RouteNames.EPISODES_PAGE,
         component: () => import("@/pages/episodes/ui/EpisodesPage.vue"),
       },
     ],
   },
   {
-    path: RoutePaths.NotFound,
-    name: RouteNames.NOT_FOUND,
+    path: RoutePaths.NotFoundPage,
+    name: RouteNames.NOT_FOUND_PAGE,
     component: () => import("@/pages/not-found/ui/NotFoundPage.vue"),
   },
 ];

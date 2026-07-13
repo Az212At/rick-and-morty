@@ -1,5 +1,5 @@
-@use "main.scss" as *;
-@use "normalize.scss" as *;
-@use "icons.scss" as *;
-@use "@/scss/theme/theme.scss" as *;
-@use "@/assets/fonts/Inter/Inter.css" as *;
+@use "./main.scss";
+@use "./normalize.scss";
+@use "./icons.scss";
+@use "./theme/theme.scss";
+@use "@/shared/assets/fonts/Inter/Inter.css";

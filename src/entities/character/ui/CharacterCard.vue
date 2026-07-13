@@ -32,15 +32,15 @@ const getStatusClass = (status: CharacterStatus) => {
         <h3 class="character-card__name">{{ character.name }}</h3>
       </div>
       <div class="character-card__row">
-        <span><img src="@/assets/icons/icon-status.svg" alt="status" class="icon-status" /></span>
+        <span><img src="@/shared/assets/icons/icon-status.svg" alt="status" class="icon-status" /></span>
         <p>{{ character.status }}</p>
       </div>
       <div class="character-card__row">
-        <span><img src="@/assets/icons/icon-human.svg" alt="human" class="icon-human" /></span>
+        <span><img src="@/shared/assets/icons/icon-human.svg" alt="human" class="icon-human" /></span>
         <p>{{ character.species }}</p>
       </div>
       <div class="character-card__row">
-        <span><img src="@/assets/icons/icon-planet.svg" alt="planet" class="icon-planet" /></span>
+        <span><img src="@/shared/assets/icons/icon-planet.svg" alt="planet" class="icon-planet" /></span>
         <p>{{ character.origin.name }}</p>
         >
       </div>

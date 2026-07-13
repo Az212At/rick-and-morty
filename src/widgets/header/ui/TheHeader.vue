@@ -4,7 +4,7 @@
   <header class="the-header">
     <div class="the-header__container">
       <div class="the-header__top">
-        <img src="@/assets/logo.svg" alt="Логотип" class="the-header__logo" />
+        <img src="@/shared/assets/img/logoA.svg" alt="Логотип" class="the-header__logo" />
       </div>
       <div class="the-header__main">
         <div class="the-header__text">
@@ -14,7 +14,7 @@
           <p class="the-header__subtitle">Персонажи и эпизоды</p>
         </div>
         <div class="the-header__image">
-          <img src="@/assets/img/HighlightImageRick.png" alt="Rick" />
+          <img src="@/shared/assets/img/HighlightImageRick.png" alt="Rick" />
         </div>
       </div>
     </div>
