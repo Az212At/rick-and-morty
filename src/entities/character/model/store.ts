@@ -1,12 +1,16 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 import type { Character } from "@/entities/character/model/types";
-import { getCharacters } from "@/entities/character/api";
+import { getCharacters, getCharacterById  } from "@/entities/character/api";
 
 export const useCharactersStore = defineStore("characters", () => {
   const characters = ref<Character[]>([]);
   const isLoading = ref(false);
   const errorMessage = ref("");
+
+  const currentCharacter = ref<Character | null>(null);
+  const isCurrentCharacterLoading = ref(false);
+  const currentCharacterError = ref("");
 
   const fetchCharacters = () => {
     isLoading.value = true;
@@ -23,10 +27,35 @@ export const useCharactersStore = defineStore("characters", () => {
       });
   };
 
+  const fetchCharacterById = (id: number) => {
+    isCurrentCharacterLoading.value = true;
+    currentCharacterError.value = "";
+    getCharacterById(id)
+      .then((response) => {
+        currentCharacter.value = response.data;
+      })
+      .catch(() => {
+        currentCharacterError.value = "Ошибка загрузки персонажа";
+      })
+      .finally(() => {
+        isCurrentCharacterLoading.value = false;
+      });
+  };
+
+  const resetCurrentCharacter = () => {
+    currentCharacter.value = null;
+  };
+
   return {
     characters,
     isLoading,
     errorMessage,
     fetchCharacters,
+
+    currentCharacter,
+    isCurrentCharacterLoading,
+    currentCharacterError,
+    fetchCharacterById,
+    resetCurrentCharacter,
   };
 });

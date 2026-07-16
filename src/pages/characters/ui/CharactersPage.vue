@@ -1,37 +1,36 @@
 <script lang="ts" setup>
 import { onMounted } from "vue";
-import CharacterCard from "@/entities/character/ui/CharacterCard.vue";
 import { useCharactersStore } from "@/entities/character/model/store";
+import CharacterCard from "@/entities/character/ui/CharacterCard.vue";
+import { useCharacterModal } from "@/features/character-details";
+import CharacterDetailModal from "@/features/character-details/ui/CharacterDetailModal.vue";
 
-const store = useCharactersStore();
+const charactersStore = useCharactersStore();
+const { isOpen, character, isLoading, open, close } = useCharacterModal();
 
 onMounted(() => {
-  store.fetchCharacters();
+  charactersStore.fetchCharacters();
 });
 </script>
 
 <template>
-  <section id="characters">
-    <div class="characters-page">
-      <div class="characters-page__container">
-        <h1>Персонажи</h1>
-        <p v-if="store.isLoading">Загрузка...</p>
-        <p v-if="store.errorMessage" class="characters-page__error">
-          {{ store.errorMessage }}
-        </p>
-        <div
-          v-if="!store.isLoading && !store.errorMessage"
-          class="characters-page__list"
-        >
-          <CharacterCard
-            v-for="character in store.characters"
-            :key="character.id"
-            :character="character"
-          />
-        </div>
-      </div>
+  <div class="characters-page">
+    <div class="characters-page__list">
+      <CharacterCard
+        v-for="char in charactersStore.characters"
+        :key="char.id"
+        :character="char"
+        @detailsClick="open"
+      />
     </div>
-  </section>
+
+    <CharacterDetailModal
+      :is-open="isOpen"
+      :character="character"
+      :is-loading="isLoading"
+      @close="close"
+    />
+  </div>
 </template>
 
 <style scoped>

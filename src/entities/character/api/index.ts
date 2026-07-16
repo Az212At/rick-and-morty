@@ -7,3 +7,9 @@ export const getCharacters = (): Promise<
 > => {
   return RickAndMortyAPI.get("/character");
 };
+
+export const getCharacterById = (
+  id: number
+): Promise<AxiosResponse<Character>> => {
+  return RickAndMortyAPI.get(`/character/${id}`);
+};

@@ -1,7 +1,11 @@
 <script lang="ts" setup>
 import type { PropType } from "vue";
 import type { Character } from "@/entities/character/model/types";
-import { CharacterStatus } from "@/entities/character/model/types";
+
+import statusIcon from "@/shared/assets/icons/icon-status.svg";
+import humanIcon from "@/shared/assets/icons/icon-human.svg";
+import planetIcon from "@/shared/assets/icons/icon-planet.svg";
+import MainButton from "@/shared/ui/MainButton.vue";
 
 defineProps({
   character: {
@@ -10,14 +14,7 @@ defineProps({
   },
 });
 
-const getStatusClass = (status: CharacterStatus) => {
-  const map: Record<CharacterStatus, string> = {
-    [CharacterStatus.Alive]: "#9EFF00",
-    [CharacterStatus.Dead]: "#FF4E4E",
-    [CharacterStatus.Unknown]: "#A0A0A0",
-  };
-  return map[status] ?? "#A0A0A0";
-};
+const emit = defineEmits(["detailsClick"]);
 </script>
 
 <template>
@@ -32,18 +29,28 @@ const getStatusClass = (status: CharacterStatus) => {
         <h3 class="character-card__name">{{ character.name }}</h3>
       </div>
       <div class="character-card__row">
-        <span><img src="@/shared/assets/icons/icon-status.svg" alt="status" class="icon-status" /></span>
+        <span>
+          <img :src="statusIcon" alt="status" class="icon-status" />
+        </span>
         <p>{{ character.status }}</p>
       </div>
       <div class="character-card__row">
-        <span><img src="@/shared/assets/icons/icon-human.svg" alt="human" class="icon-human" /></span>
+        <span>
+          <img :src="humanIcon" alt="human" class="icon-human" />
+        </span>
         <p>{{ character.species }}</p>
       </div>
       <div class="character-card__row">
-        <span><img src="@/shared/assets/icons/icon-planet.svg" alt="planet" class="icon-planet" /></span>
+        <span>
+          <img :src="planetIcon" alt="planet" class="icon-planet" />
+        </span>
         <p>{{ character.origin.name }}</p>
-        >
       </div>
+      <MainButton
+        label="Подробная информация"
+        variant="secondary"
+        @click="$emit('detailsClick', character.id)"
+      />
     </div>
   </div>
 </template>
@@ -64,16 +71,9 @@ const getStatusClass = (status: CharacterStatus) => {
     filter 0.25s ease;
 
   &:hover {
-  transform: scale(1.04);
-  filter: brightness(1.15);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
-  }
-
-   &__image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-bottom: 2px solid #333;
+    transform: scale(1.04);
+    filter: brightness(1.15);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
   }
 
   &__image {
