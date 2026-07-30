@@ -1,15 +1,16 @@
 {
   "compilerOptions": {
-    "module": "esnext",
+    "module": "ESNext",
     "target": "ESNext",
     "types": ["vite/client", "node", "vitest/globals"],
     "useDefineForClassFields": true,
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "strict": true,
     "sourceMap": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
     "lib": ["ESNext", "DOM"],
     "paths": {
       "@/*": ["src/*"]
@@ -21,5 +22,6 @@
       "path": "./tsconfig.node.json"
     }
   ],
+  "include": ["src", "env.d.ts"],
   "exclude": ["vite.config.ts", "node_modules", "dist"]
 }
