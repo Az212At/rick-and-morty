@@ -1,109 +1,72 @@
-# vue-project-template
+# Rick and Morty App
 
-Шаблон проектов с использованием Vue3 +
-Vite + [Модульная архитектура](https://digitlab.atlassian.net/wiki/spaces/REG/pages/600408088)
+Веб-приложение для просмотра персонажей и эпизодов сериала «Рик и Морти», построенное на данных публичного [Rick and Morty API](https://rickandmortyapi.com/).
 
-## Project Setup
+## Стек технологий
 
-```sh
-yarn
+- **Vue 3** (Composition API, `<script setup>`)
+- **TypeScript**
+- **Pinia** — управление состоянием
+- **Vue Router** — маршрутизация
+- **SCSS** — стилизация
+- **Axios** — HTTP-запросы
+- **Vite** — сборка проекта
+- **ESLint** — контроль качества кода
+
+## Архитектура
+
+Проект организован по методологии **Feature-Sliced Design (FSD)**:
+
+```
+src/
+├── app/            # инициализация приложения: роутер, layouts, глобальные стили
+├── entities/        # бизнес-сущности: character, episode
+│   └── <entity>/
+│       ├── api/      # запросы к API
+│       ├── model/     # типы, Pinia-сторы
+│       └── ui/        # презентационные компоненты
+├── features/         # пользовательские сценарии (например, просмотр деталей персонажа)
+├── widgets/          # композитные блоки интерфейса (header, footer)
+├── pages/            # страницы приложения
+└── shared/           # переиспользуемый код без привязки к домену
+    ├── api/            # базовый HTTP-клиент
+    ├── assets/          # шрифты, иконки, изображения
+    ├── lib/             # чистые утилиты
+    └── ui/              # UI-кит (кнопки, инпуты)
 ```
 
-### Compile and Hot-Reload for Development
+Правило импортов: слои могут использовать только то, что находится **ниже** них в иерархии:
+`shared → entities → features → widgets → pages → app`.
 
-```sh
-yarn dev
+## Функциональность
+
+- Просмотр списка персонажей карточками
+- Просмотр списка эпизодов
+- Модальное окно с подробной информацией о персонаже (статус, вид, пол, планета происхождения, текущее местоположение)
+- Адаптивная тёмная тема интерфейса
+
+## Установка и запуск
+
+```bash
+# установка зависимостей
+npm install
+
+# запуск dev-сервера
+npm run dev
+
+# сборка production-версии
+npm run build
+
+# проверка кода линтером
+npm run lint
 ```
 
-### Type-Check, Compile and Minify for Production
+## API
 
-```sh
-yarn build
-```
+Приложение использует публичный REST API:
+[https://rickandmortyapi.com/api](https://rickandmortyapi.com/api)
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-yarn test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-yarn lint
-```
-
-### Prettier
-
-```sh
-yarn format
-```
-
-### Typescript
-
-```sh
-yarn type-check
-```
-
-### Stylelint
-
-```sh
-yarn stylelint
-```
-
-# project structure
-```
-/
-├── src/                        # Исходный код проекта
-│   ├── assets/                 # Статические ресурсы
-│   │   ├── fonts/
-│   │   ├── icons/
-│   │   └── images/
-│   ├── layouts/                
-│   ├── scss/                   
-│   ├── modules/               # Модули приложения (каждая папка представляет определенный функционал или страницу)
-│   │   └── blog-page/
-│   │       ├── api/
-│   │       ├── components/
-│   │       ├── composables/
-│   │       ├── constants//index.ts
-│   │       ├── helpers/
-│   │       ├── usecases/
-│   │       ├── types/index.ts
-│   │       └── store/index.ts
-│   ├── package/                # Конфигурации и вспомогательные файлы
-│   │   ├── config/
-│   │   │   └── axios.ts        # Настройки запросов
-│   │   ├── global-helpers/          
-│   │   │   └── index.ts        # Глобальные вспомогательные функции
-│   │   ├── global-api/         
-│   │   │   └── index.ts        # Глобальные API запросы
-│   │   ├── composables/        # Глобальные кастомные хуки и логика
-│   │   │   └── useComposable.ts
-│   │   ├── stores/             # Сторы для глобальных данных
-│   │   │   └── index.ts
-│   │   ├── global-types/         
-│   │   │   └── index.ts        # Глобальные интерфейсы и типы
-│   │   ├── global-components/  # Глобальные компоненты
-│   │   ├── global-usecases/    # Вспомогательные разовые функции
-│   │   │   └── index.ts
-│   │   └── global-constants  
-│   │       └── index.ts        # Глобальные константы
-│   │
-│   ├── ui-kit/                 # Глобальные UI-компоненты
-│   │   ├── buttons/
-│   │   ├── inputs/
-│   │   └── modals/
-│   └── views/                  
-├── .yarnrc                     # Yarn registry configuration
-├── vite.config.ts              # Vite конфигурация
-├── package.json                # Список зависимостей и скриптов проекта
-└── yarn.lock                   # Lock файл Yarn
-```
-
-
-### Периодически нужно обновлять зависимости до новых версий, можно использовать [библиотеку](https://www.npmjs.com/package/npm-check-updates)
-
-```sh
-ncu -i --format group
-```
+Основные используемые эндпоинты:
+- `GET /character` — список персонажей
+- `GET /character/{id}` — данные конкретного персонажа
+- `GET /episode` — список эпизодов
