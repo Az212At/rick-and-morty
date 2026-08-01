@@ -5,7 +5,7 @@ import type { Character } from "@/entities/character/model/types";
 import statusIcon from "@/shared/assets/icons/icon-status.svg";
 import humanIcon from "@/shared/assets/icons/icon-human.svg";
 import planetIcon from "@/shared/assets/icons/icon-planet.svg";
-import MainButton from "@/shared/ui/MainButton.vue";
+import infoIcon from "@/shared/assets/icons/icon-info.svg";
 
 defineProps({
   character: {
@@ -28,29 +28,38 @@ const emit = defineEmits(["detailsClick"]);
       <div class="character-card__header">
         <h3 class="character-card__name">{{ character.name }}</h3>
       </div>
+
       <div class="character-card__row">
         <span>
           <img :src="statusIcon" alt="status" class="icon-status" />
         </span>
         <p>{{ character.status }}</p>
       </div>
+
       <div class="character-card__row">
         <span>
           <img :src="humanIcon" alt="human" class="icon-human" />
         </span>
         <p>{{ character.species }}</p>
       </div>
+
       <div class="character-card__row">
         <span>
           <img :src="planetIcon" alt="planet" class="icon-planet" />
         </span>
         <p>{{ character.origin.name }}</p>
       </div>
-      <MainButton
-        label="Подробная информация"
-        variant="secondary"
-        @click="$emit('detailsClick', character.id)"
-      />
+
+      <div class="character-card__footer">
+        <button
+          type="button"
+          class="character-card__more-btn"
+          @click="emit('detailsClick', character.id)"
+        >
+          <img :src="infoIcon" alt="info" />
+          Saiba Mais
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -98,13 +107,9 @@ const emit = defineEmits(["detailsClick"]);
   &__name {
     font-size: 18px;
     font-weight: 600;
-  }
-
-  &__fav-btn {
-    background: transparent;
-    border: none;
-    font-size: 22px;
-    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__row {
@@ -128,22 +133,42 @@ const emit = defineEmits(["detailsClick"]);
     border-radius: 50%;
   }
 
-  &__more-btn {
-    margin-top: 10px;
-    width: 100%;
-    background: transparent;
-    border: none;
-    color: #bbb;
-    font-size: 14px;
-    padding: 6px 0;
-    cursor: pointer;
-
+  &__footer {
     display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+  }
+
+  &__more-btn {
+    display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 14px;
+    cursor: pointer;
+    white-space: nowrap;
+
+    img {
+      width: 14px;
+      height: 14px;
+    }
+
+    transition:
+      background 0.2s ease,
+      color 0.2s ease;
 
     &:hover {
+      background: #0080ff;
       color: #fff;
+    }
+
+    &:active {
+      background: #0060c0;
     }
   }
 }
