@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { onUnmounted, watch } from "vue";
 import type { PropType } from "vue";
 import type { Character } from "@/entities/character/model/types";
 import { CharacterStatus } from "@/entities/character/model/types";
@@ -6,14 +7,14 @@ import { CharacterStatus } from "@/entities/character/model/types";
 import humanIcon from "@/shared/assets/icons/icon-human.svg";
 import planetIcon from "@/shared/assets/icons/icon-planet.svg";
 import mapPinIcon from "@/shared/assets/icons/map-pin-1.svg";
+import queueIcon from "@/shared/assets/icons/queue-1.svg";
 import questionIcon from "@/shared/assets/icons/question-1.svg";
 import closeIcon from "@/shared/assets/icons/x-circle-1.svg";
 import loaderIcon from "@/shared/assets/icons/loader.svg";
 import genderMaleIcon from "@/shared/assets/icons/gender-male-1.svg";
 import genderFemaleIcon from "@/shared/assets/icons/gender-female-1.svg";
-import iconEpisodeCount from "@/shared/assets/icons/icon-episode-count.svg";
 
-defineProps({
+const props = defineProps({
   isOpen: {
     type: Boolean,
     required: true,
@@ -48,13 +49,35 @@ const getGenderIcon = (gender: string) => {
   if (gender === "Female") {
     return genderFemaleIcon;
   }
-  return questionIcon; // Genderless / unknown — временная заглушка
+  return questionIcon;
 };
+
+const handleKeydown = (event: KeyboardEvent) => {
+  if (event.key === "Escape") {
+    emit("close");
+  }
+};
+
+watch(
+  () => props.isOpen,
+  (isOpen) => {
+    if (isOpen) {
+      window.addEventListener("keydown", handleKeydown);
+    } else {
+      window.removeEventListener("keydown", handleKeydown);
+    }
+  },
+  { immediate: true }
+);
+
+onUnmounted(() => {
+  window.removeEventListener("keydown", handleKeydown);
+});
 </script>
 
 <template>
   <Teleport to="body">
-    <Transition name="fade">
+    <Transition name="modal-fade">
       <div v-if="isOpen" class="modal-backdrop" @click.self="emit('close')">
         <div class="character-modal">
           <button
@@ -80,7 +103,7 @@ const getGenderIcon = (gender: string) => {
               <h2 class="character-modal__name">{{ character.name }}</h2>
 
               <div class="character-modal__row">
-                <span><img :src="iconEpisodeCount" alt="episodes" /></span>
+                <span><img :src="queueIcon" alt="episodes" /></span>
                 <p>Participou de {{ character.episode.length }} episódios</p>
               </div>
 
@@ -92,10 +115,12 @@ const getGenderIcon = (gender: string) => {
                   />
                   <p>{{ character.status }}</p>
                 </div>
+
                 <div class="character-modal__badge">
                   <img :src="humanIcon" alt="species" />
                   <p>{{ character.species }}</p>
                 </div>
+
                 <div class="character-modal__badge">
                   <img :src="getGenderIcon(character.gender)" alt="gender" />
                   <p>{{ character.gender }}</p>
@@ -109,7 +134,11 @@ const getGenderIcon = (gender: string) => {
                   <p class="character-modal__card-value">
                     {{ character.origin.name }}
                   </p>
-                  <button type="button" class="character-modal__more-btn" disabled>
+                  <button
+                    type="button"
+                    class="character-modal__more-btn"
+                    disabled
+                  >
                     <img :src="questionIcon" alt="info" />
                     Saiba mais
                   </button>
@@ -121,7 +150,11 @@ const getGenderIcon = (gender: string) => {
                   <p class="character-modal__card-value">
                     {{ character.location.name }}
                   </p>
-                  <button type="button" class="character-modal__more-btn" disabled>
+                  <button
+                    type="button"
+                    class="character-modal__more-btn"
+                    disabled
+                  >
                     <img :src="questionIcon" alt="info" />
                     Saiba mais
                   </button>
@@ -162,15 +195,26 @@ const getGenderIcon = (gender: string) => {
     position: absolute;
     top: 16px;
     right: 16px;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.1);
     border: none;
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background 0.2s ease;
+
+    img {
+      width: 18px;
+      height: 18px;
+      filter: brightness(0) invert(1);
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
   }
 
   &__content {
@@ -211,6 +255,12 @@ const getGenderIcon = (gender: string) => {
       width: 16px;
       display: flex;
       justify-content: center;
+
+      img {
+        width: 16px;
+        height: 16px;
+        filter: brightness(0) invert(1);
+      }
     }
   }
 
@@ -225,6 +275,12 @@ const getGenderIcon = (gender: string) => {
     display: flex;
     align-items: center;
     gap: 6px;
+
+    img {
+      width: 16px;
+      height: 16px;
+      filter: brightness(0) invert(1);
+    }
   }
 
   &__dot {
@@ -245,6 +301,12 @@ const getGenderIcon = (gender: string) => {
     padding: 16px;
     text-align: center;
     min-width: 160px;
+
+    > img {
+      width: 20px;
+      height: 20px;
+      filter: brightness(0) invert(1);
+    }
   }
 
   &__card-label {
@@ -263,17 +325,23 @@ const getGenderIcon = (gender: string) => {
     gap: 6px;
     background: rgba(255, 255, 255, 0.08);
     border: none;
-    color: #fff;
     border-radius: 20px;
+    color: #fff;
     padding: 8px 14px;
     cursor: pointer;
+
+    img {
+      width: 14px;
+      height: 14px;
+      filter: brightness(0) invert(1);
+    }
 
     &:hover {
       background: rgba(255, 255, 255, 0.15);
     }
 
     &:disabled {
-      opacity: 0.5;
+      opacity: 0.4;
       cursor: not-allowed;
 
       &:hover {
@@ -283,12 +351,23 @@ const getGenderIcon = (gender: string) => {
   }
 }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s ease;
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.3s ease;
 }
-.fade-enter-from,
-.fade-leave-to {
+
+.modal-fade-enter-active .character-modal,
+.modal-fade-leave-active .character-modal {
+  transition: transform 0.3s ease;
+}
+
+.modal-fade-enter-from,
+.modal-fade-leave-to {
   opacity: 0;
+}
+
+.modal-fade-enter-from .character-modal,
+.modal-fade-leave-to .character-modal {
+  transform: scale(0.95);
 }
 </style>
