@@ -20,11 +20,11 @@ defineProps({
 
 <style scoped lang="scss">
 .episode-card {
-  background-color: #222;
+  background-color: var(--subBlack);
   padding: 16px;
   border-radius: 12px;
   text-align: center;
-  color: #fff;
+  color: var(--white);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transition: transform 0.2s ease;
 
@@ -40,13 +40,13 @@ defineProps({
 
   &__code {
     font-size: 14px;
-    color: #bbb;
+    color: var(--gray-muted);
     margin-bottom: 4px;
   }
 
   &__date {
     font-size: 13px;
-    color: #888;
+    color: var(--text-dim);
   }
 }
 </style>

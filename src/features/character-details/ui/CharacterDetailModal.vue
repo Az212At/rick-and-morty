@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { onUnmounted, watch } from "vue";
 import type { PropType } from "vue";
 import type { Character } from "@/entities/character/model/types";
-import { CharacterStatus } from "@/entities/character/model/types";
+import { CharacterStatus, CharacterGender } from "@/entities/character/model/types";
+import MainModal from "@/shared/ui/MainModal.vue";
 
 import humanIcon from "@/shared/assets/icons/icon-human.svg";
 import planetIcon from "@/shared/assets/icons/icon-planet.svg";
@@ -14,7 +14,7 @@ import loaderIcon from "@/shared/assets/icons/loader.svg";
 import genderMaleIcon from "@/shared/assets/icons/gender-male-1.svg";
 import genderFemaleIcon from "@/shared/assets/icons/gender-female-1.svg";
 
-const props = defineProps({
+defineProps({
   isOpen: {
     type: Boolean,
     required: true,
@@ -35,161 +35,106 @@ const emit = defineEmits(["close"]);
 
 const getStatusColor = (status: CharacterStatus) => {
   const map: Record<CharacterStatus, string> = {
-    [CharacterStatus.Alive]: "#9EFF00",
-    [CharacterStatus.Dead]: "#FF4E4E",
-    [CharacterStatus.Unknown]: "#A0A0A0",
+    [CharacterStatus.Alive]: "var(--green)",
+    [CharacterStatus.Dead]: "var(--red)",
+    [CharacterStatus.Unknown]: "var(--gray-muted)",
   };
-  return map[status] ?? "#A0A0A0";
+  return map[status] ?? "var(--gray-muted)";
 };
 
-const getGenderIcon = (gender: string) => {
-  if (gender === "Male") {
+const getGenderIcon = (gender: CharacterGender) => {
+  if (gender === CharacterGender.Male) {
     return genderMaleIcon;
   }
-  if (gender === "Female") {
+  if (gender === CharacterGender.Female) {
     return genderFemaleIcon;
   }
   return questionIcon;
 };
-
-const handleKeydown = (event: KeyboardEvent) => {
-  if (event.key === "Escape") {
-    emit("close");
-  }
-};
-
-watch(
-  () => props.isOpen,
-  (isOpen) => {
-    if (isOpen) {
-      window.addEventListener("keydown", handleKeydown);
-    } else {
-      window.removeEventListener("keydown", handleKeydown);
-    }
-  },
-  { immediate: true }
-);
-
-onUnmounted(() => {
-  window.removeEventListener("keydown", handleKeydown);
-});
 </script>
 
 <template>
-  <Teleport to="body">
-    <Transition name="modal-fade">
-      <div v-if="isOpen" class="modal-backdrop" @click.self="emit('close')">
-        <div class="character-modal">
-          <button
-            type="button"
-            class="character-modal__close"
-            @click="emit('close')"
-          >
-            <img :src="closeIcon" alt="close" />
-          </button>
+  <MainModal :is-open="isOpen" max-width="900px" @close="emit('close')">
+    <template #default="{ close }">
+      <div class="character-modal">
+        <button type="button" class="character-modal__close" @click="close">
+          <img :src="closeIcon" alt="close" />
+        </button>
 
-          <div v-if="isLoading" class="character-modal__loading">
-            <img :src="loaderIcon" alt="loading" />
-          </div>
+        <div v-if="isLoading" class="character-modal__loading">
+          <img :src="loaderIcon" alt="loading" />
+        </div>
 
-          <div v-else-if="character" class="character-modal__content">
-            <img
-              :src="character.image"
-              :alt="character.name"
-              class="character-modal__image"
-            />
+        <div v-else-if="character" class="character-modal__content">
+          <img
+            :src="character.image"
+            :alt="character.name"
+            class="character-modal__image"
+          />
 
-            <div class="character-modal__body">
-              <h2 class="character-modal__name">{{ character.name }}</h2>
+          <div class="character-modal__body">
+            <h2 class="character-modal__name">{{ character.name }}</h2>
 
-              <div class="character-modal__row">
-                <span><img :src="queueIcon" alt="episodes" /></span>
-                <p>Participou de {{ character.episode.length }} episódios</p>
+            <div class="character-modal__row">
+              <span><img :src="queueIcon" alt="episodes" /></span>
+              <p>Participou de {{ character.episode.length }} episódios</p>
+            </div>
+
+            <div class="character-modal__badges">
+              <div class="character-modal__badge">
+                <span
+                  class="character-modal__dot"
+                  :style="{ background: getStatusColor(character.status) }"
+                />
+                <p>{{ character.status }}</p>
               </div>
 
-              <div class="character-modal__badges">
-                <div class="character-modal__badge">
-                  <span
-                    class="character-modal__dot"
-                    :style="{ background: getStatusColor(character.status) }"
-                  />
-                  <p>{{ character.status }}</p>
-                </div>
-
-                <div class="character-modal__badge">
-                  <img :src="humanIcon" alt="species" />
-                  <p>{{ character.species }}</p>
-                </div>
-
-                <div class="character-modal__badge">
-                  <img :src="getGenderIcon(character.gender)" alt="gender" />
-                  <p>{{ character.gender }}</p>
-                </div>
+              <div class="character-modal__badge">
+                <img :src="humanIcon" alt="species" />
+                <p>{{ character.species }}</p>
               </div>
 
-              <div class="character-modal__cards">
-                <div class="character-modal__card">
-                  <img :src="planetIcon" alt="planet" />
-                  <p class="character-modal__card-label">Planet</p>
-                  <p class="character-modal__card-value">
-                    {{ character.origin.name }}
-                  </p>
-                  <button
-                    type="button"
-                    class="character-modal__more-btn"
-                    disabled
-                  >
-                    <img :src="questionIcon" alt="info" />
-                    Saiba mais
-                  </button>
-                </div>
+              <div class="character-modal__badge">
+                <img :src="getGenderIcon(character.gender)" alt="gender" />
+                <p>{{ character.gender }}</p>
+              </div>
+            </div>
 
-                <div class="character-modal__card">
-                  <img :src="mapPinIcon" alt="location" />
-                  <p class="character-modal__card-label">Space station</p>
-                  <p class="character-modal__card-value">
-                    {{ character.location.name }}
-                  </p>
-                  <button
-                    type="button"
-                    class="character-modal__more-btn"
-                    disabled
-                  >
-                    <img :src="questionIcon" alt="info" />
-                    Saiba mais
-                  </button>
-                </div>
+            <div class="character-modal__cards">
+              <div class="character-modal__card">
+                <img :src="planetIcon" alt="planet" />
+                <p class="character-modal__card-label">Planet</p>
+                <p class="character-modal__card-value">
+                  {{ character.origin.name }}
+                </p>
+                <button type="button" class="character-modal__more-btn" disabled>
+                  <img :src="questionIcon" alt="info" />
+                  Saiba mais
+                </button>
+              </div>
+
+              <div class="character-modal__card">
+                <img :src="mapPinIcon" alt="location" />
+                <p class="character-modal__card-label">Space station</p>
+                <p class="character-modal__card-value">
+                  {{ character.location.name }}
+                </p>
+                <button type="button" class="character-modal__more-btn" disabled>
+                  <img :src="questionIcon" alt="info" />
+                  Saiba mais
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </Transition>
-  </Teleport>
+    </template>
+  </MainModal>
 </template>
 
 <style scoped lang="scss">
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: 16px;
-}
-
 .character-modal {
-  position: relative;
-  width: 100%;
-  max-width: 900px;
-  max-height: 90vh;
-  overflow-y: auto;
-  background: #1e1e1e;
-  border-radius: 16px;
   padding: 32px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
 
   &__close {
     position: absolute;
@@ -231,12 +176,12 @@ onUnmounted(() => {
     height: 260px;
     border-radius: 16px;
     object-fit: cover;
-    border-bottom: 2px solid #333;
+    border-bottom: 2px solid var(--gray);
   }
 
   &__body {
     flex: 1;
-    color: #fff;
+    color: var(--white);
   }
 
   &__name {
@@ -314,7 +259,7 @@ onUnmounted(() => {
   }
 
   &__card-value {
-    color: #9effea;
+    color: var(--subBlue);
     font-weight: 600;
     margin: 4px 0 12px;
   }
@@ -326,7 +271,7 @@ onUnmounted(() => {
     background: rgba(255, 255, 255, 0.08);
     border: none;
     border-radius: 20px;
-    color: #fff;
+    color: var(--white);
     padding: 8px 14px;
     cursor: pointer;
 
@@ -349,25 +294,5 @@ onUnmounted(() => {
       }
     }
   }
-}
-
-.modal-fade-enter-active,
-.modal-fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.modal-fade-enter-active .character-modal,
-.modal-fade-leave-active .character-modal {
-  transition: transform 0.3s ease;
-}
-
-.modal-fade-enter-from,
-.modal-fade-leave-to {
-  opacity: 0;
-}
-
-.modal-fade-enter-from .character-modal,
-.modal-fade-leave-to .character-modal {
-  transform: scale(0.95);
 }
 </style>

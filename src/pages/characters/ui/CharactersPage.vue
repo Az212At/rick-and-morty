@@ -47,8 +47,4 @@ onMounted(() => {
   gap: 24px;
   padding: 24px;
 }
-
-.characters-page__error {
-  color: red;
-}
 </style>

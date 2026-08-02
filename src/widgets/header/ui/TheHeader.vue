@@ -24,8 +24,8 @@
 <style scoped lang="scss">
 .the-header {
   padding: 1rem;
-  background-color: #000000;
-  color: white;
+  background-color: var(--black-pure);
+  color: var(--white);
 
   &__container {
     max-width: 1200px;
@@ -45,7 +45,7 @@
   }
 
   .favorite-btn {
-    background-color: #00b5cc;
+    background-color: var(--blue);
     border-radius: 20px;
     padding: 8px 16px;
     font-size: 14px;
@@ -73,20 +73,20 @@
     line-height: 1.2;
 
     span {
-      color: #00b5cc;
+      color: var(--blue);
     }
   }
 
   &__subtitle {
     margin-top: 1rem;
     font-size: 1.125rem;
-    color: #ccc;
+    color: var(--gray-muted);
   }
 
   &__quote {
     margin-top: 1.5rem;
     font-style: italic;
-    color: #888;
+    color: var(--text-dim);
   }
 
   &__image {

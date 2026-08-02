@@ -26,8 +26,8 @@ defineProps({
 <style scoped lang="scss">
 .main-button {
   padding: 12px 24px;
-  background-color: #007bff;
-  color: #fff;
+  background-color: var(--blue);
+  color: var(--white);
   border: none;
   border-radius: 8px;
   font-size: 16px;
@@ -35,11 +35,11 @@ defineProps({
   transition: background-color 0.2s ease;
 
   &:hover:enabled {
-    background-color: #0056b3;
+    background-color: var(--subBlue);
   }
 
   &:disabled {
-    background-color: #cccccc;
+    background-color: var(--gray-light);
     cursor: not-allowed;
   }
 }

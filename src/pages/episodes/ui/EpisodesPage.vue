@@ -44,11 +44,13 @@ onMounted(() => {
 
 .episodes-page__list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 16px;
   margin-bottom: 20px;
-  padding: 0 16px;
   padding-top: 24px;
+  padding-right: 16px;
+  padding-bottom: 0;
+  padding-left: 16px;
 }
 
 .episodes-page__pagination {

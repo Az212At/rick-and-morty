@@ -57,7 +57,7 @@ const emit = defineEmits(["detailsClick"]);
           @click="emit('detailsClick', character.id)"
         >
           <img :src="infoIcon" alt="info" />
-          Saiba Mais
+          Узнать больше
         </button>
       </div>
     </div>
@@ -66,7 +66,7 @@ const emit = defineEmits(["detailsClick"]);
 
 <style scoped lang="scss">
 .character-card {
-  background: #1e1e1e;
+  background: var(--subBlack);
   border-radius: 14px;
   overflow: hidden;
   width: 240px;
@@ -89,12 +89,12 @@ const emit = defineEmits(["detailsClick"]);
     width: 100%;
     height: 200px;
     object-fit: cover;
-    border-bottom: 2px solid #333;
+    border-bottom: 2px solid var(--gray);
   }
 
   &__body {
     padding: 14px;
-    color: #fff;
+    color: var(--white);
   }
 
   &__header {
@@ -146,7 +146,7 @@ const emit = defineEmits(["detailsClick"]);
     background: rgba(255, 255, 255, 0.08);
     border: none;
     border-radius: 20px;
-    color: #fff;
+    color: var(--white);
     font-size: 13px;
     font-weight: 500;
     padding: 8px 14px;
@@ -163,12 +163,12 @@ const emit = defineEmits(["detailsClick"]);
       color 0.2s ease;
 
     &:hover {
-      background: #0080ff;
-      color: #fff;
+      background: var(--blue);
+      color: var(--white);
     }
 
     &:active {
-      background: #0060c0;
+      background: var(--subBlue);
     }
   }
 }

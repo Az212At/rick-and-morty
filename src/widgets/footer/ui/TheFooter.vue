@@ -22,7 +22,7 @@ defineOptions({
 .the-footer {
   margin-top: 80px;
   padding: 40px 0;
-  background: #1b1b1b;
+  background: var(--black-pure);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 
   &__container {
@@ -36,10 +36,10 @@ defineOptions({
   }
 
   &__text {
-  color: #fff;
-  text-align: center;
-  margin: 0 auto;
-  margin-top: 8px;
+    color: var(--white);
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 8px;
   }
 }
 </style>

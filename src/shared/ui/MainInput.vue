@@ -38,15 +38,15 @@ const onInput = (event: Event) => {
 .main-input {
   width: 100%;
   padding: 12px 16px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--gray);
   border-radius: 8px;
   font-size: 16px;
-  background-color: #fff;
-  color: #000;
+  background-color: var(--subBlack);
+  color: var(--white);
 
   &:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: var(--blue);
   }
 }
 </style>
