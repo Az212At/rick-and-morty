@@ -1,0 +1,1 @@
+import{d as o,c as e,o as t,_ as a}from"./index-pKLkDgKg.js";const n={class:"not-found-page"},s=o({__name:"NotFoundPage",setup(c){return(_,d)=>(t(),e("div",n,"not-found-page"))}}),r=a(s,[["__scopeId","data-v-cb4a0e08"]]);export{r as default};
