@@ -49,16 +49,16 @@ src/
 
 ```bash
 # установка зависимостей
-npm install
+yarn install
 
 # запуск dev-сервера
-npm run dev
+yarn run dev
 
 # сборка production-версии
-npm run build
+yarn run build
 
 # проверка кода линтером
-npm run lint
+yarn run lint
 ```
 
 ## API
