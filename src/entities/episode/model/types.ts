@@ -5,13 +5,3 @@ export interface Episode {
   episode: string;
   characters: string[];
 }
-
-export interface EpisodesResponse {
-  info: {
-    count: number;
-    pages: number;
-    next: string | null;
-    prev: string | null;
-  };
-  results: Episode[];
-}

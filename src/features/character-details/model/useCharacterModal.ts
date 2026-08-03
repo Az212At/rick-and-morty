@@ -1,6 +1,6 @@
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
-import { useCharactersStore } from "@/entities/character/model/store";
+import { useCharactersStore } from "@/entities/character";
 
 export function useCharacterModal() {
   const charactersStore = useCharactersStore();

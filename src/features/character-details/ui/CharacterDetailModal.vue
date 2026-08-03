@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { PropType } from "vue";
-import type { Character } from "@/entities/character/model/types";
-import { CharacterStatus, CharacterGender } from "@/entities/character/model/types";
+import type { Character } from "@/entities/character";
+import { CharacterStatus, CharacterGender } from "@/entities/character";
 import MainModal from "@/shared/ui/MainModal.vue";
 
 import humanIcon from "@/shared/assets/icons/icon-human.svg";

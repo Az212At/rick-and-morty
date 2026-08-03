@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { onMounted } from "vue";
-import { useEpisodesStore } from "@/entities/episode/model/store";
-import EpisodeCard from "@/entities/episode/ui/EpisodeCard.vue";
+import { useEpisodesStore, EpisodeCard } from "@/entities/episode";
 
 const store = useEpisodesStore();
 
