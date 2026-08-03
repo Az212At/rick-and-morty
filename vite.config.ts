@@ -8,6 +8,8 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import VueDevTools from "vite-plugin-vue-devtools";
 
 export default defineConfig({
+  base: "/rick-and-morty/",
+
   test: {
     globals: true,
     environment: "jsdom",

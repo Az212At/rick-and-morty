@@ -1,5 +1,11 @@
 # Rick and Morty App
 
+[![Deployed on GitHub Pages](https://img.shields.io/badge/demo-live-brightgreen)](https://az212at.github.io/rick-and-morty/)
+
+🔗 **Демо:** [az212at.github.io/rick-and-morty](https://az212at.github.io/rick-and-morty/)
+
+🎨 **Дизайн-макет (Figma):** [посмотреть](https://www.figma.com/community/file/1225458908057208058/rick-and-morty)
+
 Веб-приложение для просмотра персонажей и эпизодов сериала «Рик и Морти», построенное на данных публичного [Rick and Morty API](https://rickandmortyapi.com/).
 
 ## Стек технологий
@@ -32,11 +38,8 @@ src/
     ├── api/            # базовый HTTP-клиент
     ├── assets/          # шрифты, иконки, изображения
     ├── lib/             # чистые утилиты
-    └── ui/              # UI-кит (кнопки, инпуты)
+    └── ui/              # UI-кит (кнопки, инпуты, модалка)
 ```
-
-Правило импортов: слои могут использовать только то, что находится **ниже** них в иерархии:
-`shared → entities → features → widgets → pages → app`.
 
 ## Функциональность
 
@@ -49,16 +52,19 @@ src/
 
 ```bash
 # установка зависимостей
-yarn install
+yarn
 
 # запуск dev-сервера
-yarn run dev
+yarn dev
 
 # сборка production-версии
-yarn run build
+yarn build
 
 # проверка кода линтером
-yarn run lint
+yarn lint
+
+# деплой на GitHub Pages
+yarn deploy
 ```
 
 ## API
