@@ -1,9 +1,7 @@
 <script lang="ts" setup>
 import { onMounted } from "vue";
-import { useCharactersStore } from "@/entities/character/model/store";
-import CharacterCard from "@/entities/character/ui/CharacterCard.vue";
-import { useCharacterModal } from "@/features/character-details";
-import CharacterDetailModal from "@/features/character-details/ui/CharacterDetailModal.vue";
+import { useCharactersStore, CharacterCard } from "@/entities/character";
+import { useCharacterModal, CharacterDetailModal } from "@/features/character-details";
 
 const charactersStore = useCharactersStore();
 const { isOpen, character, isLoading, open, close } = useCharacterModal();

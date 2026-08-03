@@ -1,6 +1,6 @@
 import type { AxiosResponse } from "axios";
 import RickAndMortyAPI from "@/shared/api/rick-and-morty-api";
-import type { EpisodesResponse } from "@/entities/episode/model/types";
+import type { EpisodesResponse } from "@/entities/episode";
 
 export const getEpisodes = (
   page = 1

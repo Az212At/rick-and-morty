@@ -1,6 +1,6 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
-import type { Character } from "@/entities/character/model/types";
+import { Character } from "@/entities/character";
 import { getCharacters, getCharacterById  } from "@/entities/character/api";
 
 export const useCharactersStore = defineStore("characters", () => {

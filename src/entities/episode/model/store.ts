@@ -1,7 +1,7 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
-import type { Episode } from "@/entities/episode/model/types";
-import { getEpisodes } from "@/entities/episode/api";
+import type { Episode } from "@/entities/episode";
+import { getEpisodes } from "@/entities/episode";
 
 export const useEpisodesStore = defineStore("episodes", () => {
   const episodes = ref<Episode[]>([]);

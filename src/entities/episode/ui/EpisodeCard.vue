@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { PropType } from "vue";
-import type { Episode } from "@/entities/episode/model/types";
+import type { Episode } from "@/entities/episode";
 
 defineProps({
   episode: {
