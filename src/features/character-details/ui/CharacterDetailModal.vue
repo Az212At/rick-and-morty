@@ -43,13 +43,12 @@ const getStatusColor = (status: CharacterStatus) => {
 };
 
 const getGenderIcon = (gender: CharacterGender) => {
-  if (gender === CharacterGender.Male) {
-    return genderMaleIcon;
-  }
-  if (gender === CharacterGender.Female) {
-    return genderFemaleIcon;
-  }
-  return questionIcon;
+  const map: Record<CharacterGender, string> = {
+    [CharacterGender.Male]: genderMaleIcon,
+    [CharacterGender.Female]: genderFemaleIcon,
+    [CharacterGender.Unknown]: questionIcon,
+  };
+  return map[gender];
 };
 </script>
 
